@@ -25,9 +25,11 @@ Also, we will only be building and pushing images when a push has been made into
 
 ##### Build secrets
 as we will need to login to aws from the action, we need a few secrets.
-- `AWS_REGISTRY_URL` will be the long `url/repo` name. eg: `$accountID.dkr.ecr.us-east-1.amazonaws.com/hello-world` 
+- `AWS_ECR_REPO` will be the repo name from `url/repo` . eg: If the repo is `$accountID.dkr.ecr.us-east-1.amazonaws.com/hello-world`, `AWS_ECR_REPO` will be `hello-world`.
 - `AWS_ACCESS_KEY_ID` your aws access key.
 - `AWS_SECRET_ACCESS_KEY` your aws secret key.
+- `AWS_DEFAULT_REGION` the default region of your project, eg: `us-east-1`
+
 
 You'll need to set the in your repository's secrets. So thats **Settings > Secrets > New Repository Secret**.
 
