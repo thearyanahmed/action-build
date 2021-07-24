@@ -9,15 +9,31 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    # steps:
+    # - name: Login to ECR
+    #   uses: jwalton/gh-ecr-login@v1
+    #   id: ecr
+    #   with:
+    #     access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     region: ${{ secrets.AWS_REGION }}
+    # - name: Build the tagged Docker image
+    #   run: docker build --file ../Dockerfile --tag ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.event.head_commit.message }} .
+    # - name: Pushing docker to ECR
+    #   run: docker push ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.event.head_commit.message }}
     steps:
     - name: Login to ECR
-      uses: jwalton/gh-ecr-login@v1
       id: ecr
+      uses: jwalton/gh-ecr-login@v1
       with:
         access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         region: ${{ secrets.AWS_REGION }}
-    - name: Build the tagged Docker image
-      run: docker build --file ../Dockerfile --tag ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.event.head_commit.message }} .
-    - name: Pushing docker to ECR
-      run: docker push ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.event.head_commit.message }}
+    - name: Push to ECR
+      run: |
+        docker tag my-image ${{ steps.ecr.outputs.account }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.event.head_commit.message }}
+        docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.event.head_commit.message }}
+
+
+
+
