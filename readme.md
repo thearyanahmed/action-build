@@ -41,7 +41,7 @@ For example, if I want to tag my image `1.38`, the very last commit message shou
 
 To finally build and push to ECR,
 
-`git commit --m "1.38"; git push origin build-ecr`
+`git commit -m "1.38"; git push origin build-ecr`
 
 ### bitbucket pipeline
 
@@ -58,7 +58,7 @@ For example, if I want to tag my image `1.38`, the commit message should be `1.3
 
 To finally build and push to ECR,
 
-`git commit --m "1.38"; git push origin build-ecr`
+`git commit -m "1.38"; git push origin build-ecr`
 
 
 A demo docker file has been added to test. 
