@@ -1,0 +1,20 @@
+name: Build Docker Images & Push To ECR
+
+on:
+  push:
+    branches:
+      - build
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Get the version
+      id: vars
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+    - name: Build the tagged Docker image
+      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_IMAGE_NAME }}:${{steps.vars.outputs.tag}}
+    - name: Pushing docker to ECR
+      run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION  }}.region.amazonaws.com/${{ secrets.DOCKER_IMAGE_NAME }}
