@@ -21,7 +21,7 @@ or you can simply copy the `ecr.yml` file and paste it in your project's `workfl
 
 The script looks for a `Dockerfile` on the root of your project, if its not present there, make sure the change it on `line 18` of `.github/workflows/ecr.yml` file. 
 
-Also, we will only be building and pushing images when a push has been made into the `build` branch. You can change it from `.github/workflows/ecr.yml`'s `line 6`.
+Also, we will only be building and pushing images when a push has been made into the `build-ecr` branch. You can change it from `.github/workflows/ecr.yml`'s `line 6`.
 
 ##### Build secrets
 as we will need to login to aws from the action, we need a few secrets.
@@ -32,16 +32,18 @@ as we will need to login to aws from the action, we need a few secrets.
 You'll need to set the in your repository's secrets. So thats **Settings > Secrets > New Repository Secret**.
 
 After setting these, 
-git checkout to `build` branch or the branch you `chose for the deployment`.
+git checkout to `build-ecr` branch or the branch you `chose for the deployment`.
 
 **Now, for the tag versioning, the very last commit message will be used.**
 For example, if I want to tag my image `1.38`, the very last commit message should be `1.38`. 
 
-eg: `git commit --m "1.38"; git push origin build`
+To finally build and push to ECR,
+
+`git commit --m "1.38"; git push origin build-ecr`
 
 ### bitbucket pipeline
 
-Same as above, we will be pushing on `build` branch, but you can change that from `line 8` of `bitbucket-pipeline.yml`.
+Same as above, we will be pushing on `build-ecr` branch, but you can change that from `line 8` of `bitbucket-pipeline.yml`.
 
 ##### Build secrets
 - `AWS_DEFAULT_REGION` the default region of your project, eg: `us-east-1`
@@ -52,4 +54,7 @@ Same as above, we will be pushing on `build` branch, but you can change that fro
 **Now, for the tag versioning, the commit message will be used.**
 For example, if I want to tag my image `1.38`, the commit message should be `1.38`. 
 
+To finally build and push to ECR,
+
+`git commit --m "1.38"; git push origin build-ecr`
 A demo docker file has been added to test. 
