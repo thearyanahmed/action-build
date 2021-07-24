@@ -19,7 +19,7 @@ cd action-build
 
 or you can simply copy the `ecr.yml` file and paste it in your project's `workflows` directory. 
 
-The script looks for a `Dockerfile` on the root of your project, if its not present there, make sure the change it on `line 18` of `.github/workflows/ecr.yml` file. 
+The script looks for a `Dockerfile` on the root of your project, if its not present there, make sure the change it on `line 33` of `.github/workflows/ecr.yml` file. 
 
 Also, we will only be building and pushing images when a push has been made into the `build-ecr` branch. You can change it from `.github/workflows/ecr.yml`'s `line 6`.
 
@@ -55,6 +55,9 @@ Same as above, we will be pushing on `build-ecr` branch, but you can change that
 
 **Now, for the tag versioning, the commit message will be used.**
 For example, if I want to tag my image `1.38`, the commit message should be `1.38`. 
+
+The script looks for a `Dockerfile` on the root of your project, if its not present there, make sure the change it on `line 16` of `bitbucket-pipeline.yml` file. 
+
 
 To finally build and push to ECR,
 
