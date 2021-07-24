@@ -15,6 +15,6 @@ jobs:
       id: vars
       run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
     - name: Build the tagged Docker image
-      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_IMAGE_NAME }}:${{ steps.vars.outputs.tag }}
+      run: docker build . --file Dockerfile --tag ${{ secrets.AWS_REGISTRY_URL }}:${{ steps.vars.outputs.tag }}
     - name: Pushing docker to ECR
-      run: docker push ${{ secrets.DOCKER_IMAGE_NAME }}:${{ steps.vars.outputs.tag }}
+      run: docker push ${{ secrets.AWS_REGISTRY_URL }}:${{ steps.vars.outputs.tag }}
