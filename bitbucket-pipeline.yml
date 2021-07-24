@@ -1,3 +1,4 @@
+# Building docker image using bitbucket pipeline and pushing it to ECR
 # enable Docker for your repository
 options:
   docker: true
@@ -15,5 +16,4 @@ pipelines:
             - export BUILD_ID=`git log --format=%B -n 1 $BITBUCKET_COMMIT`
             - docker build -t ${AWS_REGISTRY_URL}:$BUILD_ID .
             - docker push ${AWS_REGISTRY_URL}:$BUILD_ID
-            # - docker tag ${AWS_REGISTRY_URL}:$BUILD_ID ${AWS_REGISTRY_URL}:development
             - docker push ${AWS_REGISTRY_URL}:$BUILD_ID
