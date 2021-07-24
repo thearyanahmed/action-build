@@ -7,7 +7,6 @@ pipelines:
   branches:
     build-ecr:
       - step:
-          #python image with aws-cli installed
           image: tstrohmeier/awscli:3.8.3
           script:
             # aws login
