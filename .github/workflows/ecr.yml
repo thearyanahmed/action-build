@@ -11,12 +11,12 @@ jobs:
 
     steps:
     - name: Login to ECR
+      uses: jwalton/gh-ecr-login@v1
       id: ecr
       with:
         access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         region: ${{ secrets.AWS_REGION }}
-    - uses: jwalton/gh-ecr-login@v1
     - name: Build the tagged Docker image
       run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.event.head_commit.message }}
     - name: Pushing docker to ECR
