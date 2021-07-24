@@ -18,6 +18,6 @@ jobs:
         secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         region: ${{ secrets.AWS_REGION }}
     - name: Build the tagged Docker image
-      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.event.head_commit.message }}
+      run: docker build --tag ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.event.head_commit.message }} .
     - name: Pushing docker to ECR
       run: docker push ${{ secrets.DOCKER_IMAGE_NAME }}:${{ github.event.head_commit.message }}
